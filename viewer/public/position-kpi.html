@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Распределение KPI по должностям</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="hero hero-single">
+      <div>
+        <nav class="hero-nav">
+          <a class="nav-link" href="/">KPI</a>
+          <a class="nav-link" href="/staff.html">Сотрудники</a>
+          <a class="nav-link" href="/objects.html">Объекты</a>
+          <a class="nav-link" href="/upload.html">Загрузка</a>
+          <a class="nav-link" href="/metrics.html">Показатели</a>
+          <a class="nav-link is-active" href="/position-kpi.html">По должностям</a>
+        </nav>
+        <h1 class="metrics-hero-title">Распределение KPI по должностям</h1>
+      </div>
+    </header>
+
+    <main class="stack-layout">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Карточка должности</p>
+            <h2>Выберите должность</h2>
+          </div>
+        </div>
+
+        <div class="position-profile-toolbar">
+          <label class="form-field position-profile-select">
+            <span class="form-label">Должность</span>
+            <select id="position-kpi-position" class="control control-select"></select>
+          </label>
+          <div id="position-kpi-status" class="form-status"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Новая строка</p>
+            <h2>Добавить показатель в карточку должности</h2>
+          </div>
+        </div>
+
+        <form id="position-kpi-create-form" class="employee-form">
+          <div class="form-grid position-kpi-form-grid">
+            <label class="form-field">
+              <span class="form-label">Блок</span>
+              <select id="position-kpi-group" class="control control-select" required></select>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Показатель</span>
+              <select id="position-kpi-metric" class="control control-select" required></select>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Ед. изм.</span>
+              <input id="position-kpi-unit" class="control" type="text" readonly>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Норма</span>
+              <input id="position-kpi-target" class="control" type="number" min="0.001" step="0.001" required>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Вес, %</span>
+              <input id="position-kpi-weight" class="control" type="number" min="0" max="100" step="1" value="10" required>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Порядок</span>
+              <input id="position-kpi-sort" class="control" type="number" min="1" step="1" placeholder="Авто">
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Добавить в карточку</button>
+            <div id="position-kpi-create-status" class="form-status"></div>
+          </div>
+        </form>
+      </section>
+
+      <section class="metrics-grid" id="position-kpi-groups"></section>
+    </main>
+  </div>
+
+  <script src="/auth-client.js"></script>
+  <script src="/position-kpi.js"></script>
+</body>
+</html>

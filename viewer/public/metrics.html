@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Показатели KPI</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="hero hero-single">
+      <div>
+        <nav class="hero-nav">
+          <a class="nav-link" href="/">KPI</a>
+          <a class="nav-link" href="/staff.html">Сотрудники</a>
+          <a class="nav-link" href="/objects.html">Объекты</a>
+          <a class="nav-link" href="/upload.html">Загрузка</a>
+          <a class="nav-link is-active" href="/metrics.html">Показатели</a>
+          <a class="nav-link" href="/position-kpi.html">По должностям</a>
+        </nav>
+        <h1 class="metrics-hero-title">Показатели блоков A и Б</h1>
+      </div>
+    </header>
+
+    <main class="stack-layout">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Новый показатель</p>
+            <h2>Добавить строку</h2>
+          </div>
+        </div>
+
+        <form id="metric-create-form" class="employee-form">
+          <div class="form-grid metrics-form-grid">
+            <label class="form-field">
+              <span class="form-label">Блок</span>
+              <select id="metric-create-group" class="control control-select" required></select>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Название</span>
+              <input id="metric-create-name" class="control" type="text" placeholder="Название показателя" required>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Тип</span>
+              <select id="metric-create-type" class="control control-select" required>
+                <option value="score">Баллы 0-5</option>
+                <option value="pct">Процент</option>
+                <option value="disc">Дисциплина %</option>
+              </select>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Вес, %</span>
+              <input id="metric-create-weight" class="control" type="number" min="0" max="100" step="1" value="10" required>
+            </label>
+            <label class="form-field">
+              <span class="form-label">Норма</span>
+              <input id="metric-create-norm" class="control" type="text" placeholder="0-100%">
+            </label>
+            <label class="form-field">
+              <span class="form-label">Порядок</span>
+              <input id="metric-create-sort" class="control" type="number" min="1" step="1" placeholder="Авто">
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Добавить показатель</button>
+            <div id="metric-create-status" class="form-status"></div>
+          </div>
+        </form>
+      </section>
+
+      <section class="metrics-grid" id="metrics-groups"></section>
+    </main>
+  </div>
+
+  <script src="/auth-client.js"></script>
+  <script src="/metrics.js"></script>
+</body>
+</html>

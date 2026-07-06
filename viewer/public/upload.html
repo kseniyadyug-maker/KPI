@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Загрузка KPI</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <nav class="hero-nav">
+          <a class="nav-link" href="/">KPI</a>
+          <a class="nav-link" href="/staff.html">Сотрудники</a>
+          <a class="nav-link" href="/objects.html">Объекты</a>
+          <a class="nav-link is-active" href="/upload.html">Загрузка</a>
+          <a class="nav-link" href="/metrics.html">Показатели</a>
+          <a class="nav-link" href="/position-kpi.html">По должностям</a>
+        </nav>
+        <h1>Загрузка KPI</h1>
+      </div>
+      <div class="hero-panel">
+        <p class="control-label">Период загрузки</p>
+        <div id="upload-selected-period" class="server-status">
+          Месяц будет выбран при загрузке файла.
+        </div>
+        <div id="upload-page-status" class="server-status">Загрузка периодов...</div>
+      </div>
+    </header>
+
+    <main class="stack-layout">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Автозагрузка</p>
+            <h2>Файлы показателей</h2>
+          </div>
+        </div>
+
+        <div class="upload-grid">
+          <article class="upload-card">
+            <p class="upload-card-copy">
+              Загрузите Excel-файл со структурой <strong>месяц / ФИО / ИТОГО</strong>.
+              Значение будет записано в показатель <strong>Исполнительская дисциплина</strong>
+              только у тех сотрудников, у кого этот показатель назначен по должности в выбранном периоде.
+            </p>
+
+            <form id="execution-discipline-form" class="employee-form">
+              <label class="form-field">
+                <span class="form-label">Исполнительская дисциплина</span>
+                <input
+                  id="execution-discipline-file"
+                  class="upload-file-control"
+                  type="file"
+                  accept=".xlsx,.xlsm,.xltx,.xltm"
+                  required
+                >
+              </label>
+              <div class="form-actions">
+                <button id="execution-discipline-submit" class="primary-button" type="submit">Загрузить файл</button>
+                <div id="execution-discipline-status" class="form-status"></div>
+              </div>
+            </form>
+          </article>
+
+          <article class="upload-card">
+            <p class="upload-card-copy">
+              Загрузите Excel-файл со структурой <strong>месяц / Сотрудник / всего / просрок / исполнение %</strong>.
+              Значение из поля <strong>исполнение %</strong> будет записано в показатели
+              <strong>Исполнение сроков согласования договоров</strong> или
+              <strong>Соблюдение сроков заключения договоров</strong> только у тех сотрудников,
+              у кого этот показатель назначен по должности в выбранном периоде.
+            </p>
+
+            <form id="contract-approvals-form" class="employee-form">
+              <label class="form-field">
+                <span class="form-label">Согласование договоров</span>
+                <input
+                  id="contract-approvals-file"
+                  class="upload-file-control"
+                  type="file"
+                  accept=".xlsx,.xlsm,.xltx,.xltm"
+                  required
+                >
+              </label>
+              <div class="form-actions">
+                <button id="contract-approvals-submit" class="primary-button" type="submit">Загрузить файл</button>
+                <div id="contract-approvals-status" class="form-status"></div>
+              </div>
+            </form>
+          </article>
+
+          <article class="upload-card">
+            <p class="upload-card-copy">
+              Загрузите export-выгрузку со строками <strong>id / Обект / Руководитель / typ / 01..12</strong>.
+              По выбранному KPI-месяцу система возьмет нужную колонку месяца, соберет данные по объектам,
+              усреднит KPI по руководителю и обновит показатели
+              <strong>Исполнение Плана поступления ДС</strong>,
+              <strong>Исполнение Плана расходования ДС</strong> и
+              <strong>Исполнение Плана выполнения СМР, руб.</strong>
+            </p>
+
+            <form id="project-manager-export-form" class="employee-form">
+              <label class="form-field">
+                <span class="form-label">Export по руководителям</span>
+                <input
+                  id="project-manager-export-file"
+                  class="upload-file-control"
+                  type="file"
+                  accept=".xlsx,.xls,.xlsm,.xltx,.xltm"
+                  required
+                >
+              </label>
+              <div class="form-actions">
+                <button id="project-manager-export-submit" class="primary-button" type="submit">Загрузить файл</button>
+                <div id="project-manager-export-status" class="form-status"></div>
+              </div>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section id="upload-result-panel" class="panel" hidden>
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Результат</p>
+            <h2>Отчет по загрузке</h2>
+          </div>
+        </div>
+
+        <div id="upload-result-summary" class="upload-results-grid"></div>
+
+        <div class="table-wrap">
+          <table class="employees-table upload-results-table">
+            <thead>
+              <tr>
+                <th>ФИО</th>
+                <th>%</th>
+                <th>Статус</th>
+                <th>Комментарий</th>
+              </tr>
+            </thead>
+            <tbody id="upload-results-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="upload-period-dialog" class="modal-dialog">
+    <div class="modal-card">
+      <form id="upload-period-form" class="employee-form modal-form">
+        <div class="modal-head">
+          <div>
+            <p class="panel-kicker">Период загрузки</p>
+            <h2 id="upload-period-dialog-title">Выберите месяц</h2>
+          </div>
+          <button
+            id="close-upload-period-dialog"
+            class="modal-close"
+            type="button"
+            aria-label="Закрыть окно"
+          >&times;</button>
+        </div>
+
+        <label class="form-field">
+          <span class="form-label">Месяц KPI</span>
+          <select id="upload-period-dialog-select" class="control control-select" required></select>
+        </label>
+
+        <div class="form-actions">
+          <button id="submit-upload-period-dialog" class="primary-button" type="submit">Продолжить</button>
+          <button id="cancel-upload-period-dialog" class="action-button secondary" type="button">Отмена</button>
+          <div id="upload-period-dialog-status" class="form-status"></div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="/auth-client.js"></script>
+  <script src="/upload.js"></script>
+</body>
+</html>

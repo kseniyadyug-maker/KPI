@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Логи · KPI Viewer</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="hero">
+      <div>
+        <nav class="hero-nav">
+          <a class="nav-link" href="/">KPI</a>
+          <a class="nav-link" href="/staff.html">Сотрудники</a>
+          <a class="nav-link" href="/objects.html">Объекты</a>
+          <a class="nav-link" href="/upload.html">Загрузка</a>
+          <a class="nav-link" href="/metrics.html">Показатели</a>
+          <a class="nav-link" href="/position-kpi.html">По должностям</a>
+          <a class="nav-link" href="/users.html">Пользователи</a>
+          <a class="nav-link is-active" href="/logs.html">Логи</a>
+        </nav>
+        <h1>Журнал действий</h1>
+      </div>
+      <div class="hero-panel">
+        <label class="control-label" for="logs-limit-select">Количество записей</label>
+        <select id="logs-limit-select" class="control control-select">
+          <option value="100">100</option>
+          <option value="200" selected>200</option>
+          <option value="500">500</option>
+        </select>
+        <button id="logs-refresh-button" class="primary-button hero-panel-action" type="button">Обновить</button>
+        <div id="logs-status" class="server-status">Загрузка журнала...</div>
+      </div>
+    </header>
+
+    <main class="stack-layout">
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Контроль</p>
+            <h2>Входы, изменения и удаление данных</h2>
+          </div>
+          <div class="toolbar">
+            <input id="logs-search-input" class="control" type="search" placeholder="Поиск по пользователю, действию или сообщению">
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="employees-table staff-table">
+            <thead>
+              <tr>
+                <th>Дата</th>
+                <th>Пользователь</th>
+                <th>Действие</th>
+                <th>Сущность</th>
+                <th>Сообщение</th>
+                <th>Детали</th>
+              </tr>
+            </thead>
+            <tbody id="logs-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/auth-client.js"></script>
+  <script src="/logs.js"></script>
+</body>
+</html>

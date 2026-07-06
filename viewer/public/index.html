@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPI Viewer Localhost</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="hero hero-kpi">
+      <div>
+        <nav class="hero-nav">
+          <a class="nav-link is-active" href="/">KPI</a>
+          <a class="nav-link" href="/staff.html">Сотрудники</a>
+          <a class="nav-link" href="/objects.html">Объекты</a>
+          <a class="nav-link" href="/upload.html">Загрузка</a>
+          <a class="nav-link" href="/metrics.html">Показатели</a>
+          <a class="nav-link" href="/position-kpi.html">По должностям</a>
+        </nav>
+        <h1 class="hero-title-single-line">KPI сотрудников</h1>
+      </div>
+      <div class="hero-panel">
+        <label class="control-label" for="period-select">Период</label>
+        <select id="period-select" class="control control-select"></select>
+        <button id="open-kpi-period-copy" class="action-button secondary hero-panel-action" type="button" data-requires-permission="canCopyPeriodData" hidden>Скопировать данные</button>
+        <button id="print-report-button" class="primary-button hero-panel-action" type="button">Печать</button>
+      </div>
+    </header>
+
+    <main class="stack-layout">
+      <section class="cards-grid" id="summary-cards"></section>
+
+      <section id="objects-panel" class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="panel-kicker">Сводка по объектам</p>
+            <h2>Объекты и руководители</h2>
+          </div>
+          <div class="toolbar">
+            <button id="reset-objects-button" class="action-button secondary" type="button" hidden>Сбросить</button>
+          </div>
+        </div>
+        <div class="object-grid" id="object-grid"></div>
+      </section>
+
+      <section class="employee-workspace" id="employee-workspace">
+        <section class="panel" id="employees-panel">
+          <div class="panel-head">
+            <div>
+              <h2>Сотрудники</h2>
+            </div>
+            <div class="toolbar">
+              <button id="open-kpi-employee-create" class="primary-button" type="button">Назначить / сменить объект</button>
+              <button id="reset-employees-button" class="action-button secondary" type="button">Сбросить</button>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table class="employees-table">
+              <thead>
+                <tr>
+                  <th>Сотрудник</th>
+                  <th>Объект</th>
+                  <th>Блок А</th>
+                  <th>Блок Б</th>
+                  <th>Итог</th>
+                  <th>Статус</th>
+                  <th>Согласование</th>
+                </tr>
+              </thead>
+              <tbody id="employees-body"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="detail-card" id="employee-detail">
+          <div class="detail-empty">
+            <p class="detail-empty-title">Выберите сотрудника</p>
+            <p class="detail-empty-copy">Нажмите на строку сотрудника, чтобы открыть его карточку.</p>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="kpi-employee-create-dialog" class="modal-dialog">
+    <div class="modal-card">
+      <form id="kpi-employee-create-form" class="employee-form modal-form">
+        <div class="modal-head">
+          <div>
+            <p class="panel-kicker">Запись KPI</p>
+            <h2>Назначить или сменить объект</h2>
+          </div>
+          <button id="close-kpi-employee-create" class="modal-close" type="button" aria-label="Закрыть окно">×</button>
+        </div>
+
+        <div class="form-grid kpi-create-form-grid">
+          <label class="form-field">
+            <span class="form-label">Сотрудник</span>
+            <input
+              id="kpi-create-employee-input"
+              class="control"
+              type="text"
+              list="kpi-create-employee-options"
+              placeholder="Начните вводить фамилию"
+              autocomplete="off"
+              required
+            >
+            <datalist id="kpi-create-employee-options"></datalist>
+          </label>
+          <label class="form-field">
+            <span class="form-label">Объект</span>
+            <select id="kpi-create-object-select" class="control control-select" required></select>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button id="submit-kpi-employee-create" class="primary-button" type="submit">Сохранить</button>
+          <button id="cancel-kpi-employee-create" class="action-button secondary" type="button">Отмена</button>
+          <div id="kpi-employee-create-status" class="form-status"></div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="kpi-period-copy-dialog" class="modal-dialog">
+    <div class="modal-card">
+      <form id="kpi-period-copy-form" class="employee-form modal-form">
+        <div class="modal-head">
+          <div>
+            <p class="panel-kicker">Копирование KPI</p>
+            <h2>Скопировать данные</h2>
+          </div>
+          <button id="close-kpi-period-copy" class="modal-close" type="button" aria-label="Закрыть окно">×</button>
+        </div>
+
+        <div class="form-grid kpi-create-form-grid">
+          <label class="form-field">
+            <span class="form-label">Скопировать из</span>
+            <select id="kpi-copy-source-period" class="control control-select" required></select>
+          </label>
+          <label class="form-field">
+            <span class="form-label">Скопировать куда</span>
+            <select id="kpi-copy-target-period" class="control control-select" required></select>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button id="submit-kpi-period-copy" class="primary-button" type="submit">Сохранить</button>
+          <button id="cancel-kpi-period-copy" class="action-button secondary" type="button">Отмена</button>
+          <div id="kpi-period-copy-status" class="form-status"></div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <script src="/auth-client.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

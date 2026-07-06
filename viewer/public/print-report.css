@@ -1,0 +1,435 @@
+:root {
+  --print-blue: #3f67eb;
+  --print-green: #169f6f;
+  --print-amber: #c57a0a;
+  --print-violet: #6b4df2;
+  --print-orange: #df8a12;
+  --print-line: #d9e1f3;
+  --print-line-strong: #bfccef;
+  --print-text: #1f2a54;
+  --print-muted: #7e8ab5;
+  --print-success: #0f8f63;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: var(--print-text);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+@page {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+@page wide {
+  size: A4 landscape;
+  margin: 10mm;
+}
+
+.print-page {
+  page-break-after: always;
+  min-height: calc(210mm - 20mm);
+}
+
+.print-page:last-child {
+  page-break-after: auto;
+}
+
+.print-page.is-wide {
+  page: wide;
+}
+
+.print-page-line {
+  height: 4px;
+  background: var(--print-blue);
+  margin-bottom: 12px;
+}
+
+.print-report-header,
+.print-employee-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--print-line);
+}
+
+.print-report-header h1,
+.print-employee-header h1 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+  color: #1c2550;
+}
+
+.print-report-header-stats,
+.print-page-side {
+  text-align: right;
+  font-size: 11px;
+  color: var(--print-muted);
+}
+
+.print-report-header-stats strong,
+.print-page-side strong {
+  color: var(--print-text);
+}
+
+.print-page-meta {
+  margin-top: 4px;
+  color: var(--print-muted);
+  font-size: 11px;
+}
+
+.print-page-status {
+  color: var(--print-success);
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.print-object-summary {
+  margin-top: 12px;
+}
+
+.print-object-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5f6e9c;
+}
+
+.print-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.print-summary-card {
+  min-height: 78px;
+  padding: 10px 12px;
+  border: 1px solid var(--print-line);
+  border-top-width: 3px;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.print-summary-card.is-blue {
+  border-top-color: var(--print-blue);
+}
+
+.print-summary-card.is-green {
+  border-top-color: var(--print-green);
+}
+
+.print-summary-card.is-amber {
+  border-top-color: var(--print-amber);
+}
+
+.print-summary-card.is-violet {
+  border-top-color: var(--print-violet);
+}
+
+.print-summary-card-label,
+.print-premium-item span {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--print-muted);
+}
+
+.print-summary-card strong,
+.print-premium-item strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+.print-summary-card-sub {
+  display: block;
+  margin-top: 4px;
+  color: var(--print-muted);
+  font-size: 11px;
+}
+
+.print-report-table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.print-report-table th,
+.print-report-table td {
+  border: 1px solid var(--print-line);
+  padding: 6px 8px;
+  vertical-align: middle;
+}
+
+.print-report-table th {
+  background: #f7f9ff;
+  color: #6f7aa8;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+.print-report-table .is-block-a {
+  color: var(--print-orange);
+}
+
+.print-report-table .is-block-b {
+  color: var(--print-blue);
+}
+
+.print-group-row td {
+  background: #f3f6ff;
+  color: var(--print-blue);
+  font-weight: 700;
+  border-top: 2px solid var(--print-blue);
+}
+
+.print-average-row td {
+  background: #fbfcff;
+  color: var(--print-blue);
+  font-weight: 700;
+}
+
+.print-employee-name {
+  font-weight: 700;
+  color: #1c2550;
+}
+
+.print-employee-meta {
+  margin-top: 2px;
+  color: var(--print-muted);
+  font-size: 10px;
+}
+
+.print-cell-index {
+  width: 34px;
+  text-align: center;
+  color: var(--print-muted);
+}
+
+.print-approved-mark {
+  margin-left: 4px;
+  color: var(--print-success);
+}
+
+.print-report-table td.is-strong,
+.print-report-table .is-strong {
+  font-weight: 700;
+  color: var(--print-success);
+}
+
+.print-report-table td.is-success {
+  color: var(--print-success);
+  font-weight: 700;
+}
+
+.print-wide-table th,
+.print-wide-table td {
+  font-size: 8px;
+  padding: 4px 4px;
+}
+
+.print-wide-table th:first-child,
+.print-wide-table td:first-child {
+  width: 138px;
+}
+
+.print-wide-table thead th {
+  font-size: 7.2px;
+  line-height: 1.15;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.print-wide-table thead tr:first-child th {
+  font-size: 7.8px;
+  text-align: center;
+}
+
+.print-wide-table .print-metric-head {
+  font-size: 6.8px;
+}
+
+.print-wide-table .print-employee-name {
+  font-size: 8.5px;
+  line-height: 1.2;
+}
+
+.print-wide-table .print-employee-meta {
+  font-size: 8px;
+}
+
+.print-wide-table td:not(:first-child),
+.print-wide-table th:not(:first-child) {
+  text-align: center;
+}
+
+.print-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.print-detail-card,
+.print-premium-card,
+.print-signatures {
+  border: 1px solid var(--print-line);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.print-detail-card {
+  padding: 10px;
+}
+
+.print-detail-table th,
+.print-detail-table td {
+  padding: 5px 6px;
+  font-size: 9.5px;
+}
+
+.print-detail-table th:first-child,
+.print-detail-table td:first-child {
+  font-size: 9px;
+  line-height: 1.25;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.print-col-title-a {
+  width: 46%;
+}
+
+.print-col-weight-a {
+  width: 10%;
+}
+
+.print-col-score-a,
+.print-col-calc-a,
+.print-col-agreed-a {
+  width: 14.67%;
+}
+
+.print-col-title-b {
+  width: 38%;
+}
+
+.print-col-weight-b {
+  width: 8%;
+}
+
+.print-col-norm-b {
+  width: 14%;
+}
+
+.print-col-fact-b {
+  width: 12%;
+}
+
+.print-col-calc-b,
+.print-col-agreed-b {
+  width: 14%;
+}
+
+.print-detail-card h2,
+.print-premium-card h2 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #1c2550;
+}
+
+.print-detail-card:first-child h2 {
+  border-bottom: 2px solid var(--print-orange);
+  padding-bottom: 6px;
+}
+
+.print-detail-card:last-child h2 {
+  border-bottom: 2px solid var(--print-blue);
+  padding-bottom: 6px;
+}
+
+.print-detail-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.print-detail-total strong {
+  color: var(--print-blue);
+}
+
+.print-premium-card {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.print-premium-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--print-line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.print-premium-item {
+  min-height: 52px;
+  padding: 8px 10px;
+  border-right: 1px solid var(--print-line);
+}
+
+.print-premium-item:last-child {
+  border-right: none;
+}
+
+.print-premium-item strong {
+  color: var(--print-blue);
+}
+
+.print-premium-item.is-total strong {
+  color: var(--print-success);
+}
+
+.print-signatures {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 10px;
+  padding: 16px 12px 10px;
+}
+
+.print-sign-line {
+  border-top: 1px solid #9fb0dc;
+  padding-top: 4px;
+  color: var(--print-muted);
+  font-size: 10px;
+}

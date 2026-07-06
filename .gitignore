@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Local data and generated database
+database/kpi.sqlite
+server-publish-work/database/kpi.sqlite
+
+# Source Excel files
+inputs/*.xlsx
+server-publish-work/inputs/*.xlsx
+
+# Deployment and local helper artifacts
+server-publish-work/
+deploy-askpass.cmd
+project-access.txt
+
+# Logs and temp files
+*.log
+*.tmp
+tmp-workbook.json
+
+# Local tool metadata
+.agents/
+.codex/
